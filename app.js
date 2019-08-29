@@ -92,12 +92,14 @@ app.post('/sign_up', function(req,res){
     var email =req.body.email;
     var lsname = req.body.lsname;
     var admin =req.body.add_no;
+    var LinkedIn=req.body.LinkedIn;
 
     var data = {
         "first_name": fname,
         "email":email,
         "last_name":lsname,
         "admission_no":admin,
+        "linkedin":"http://www.linkedin.com/in/"+LinkedIn
     }
     var query = { admission_no: admin };
 db.collection("details").findOne(query,function(err, result) {
