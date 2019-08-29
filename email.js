@@ -1,4 +1,4 @@
-var nodemailer = require('nodemailer');
+/*var nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -21,4 +21,25 @@ transporter.sendMail(mailOptions, function(error, info){
   } else {
     console.log('Email sent: ' + info.response);
   }
+});*/
+
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/meetup');
+var db=mongoose.connection;
+db.on('error', console.log.bind(console, "connection error"));
+db.once('open', function(callback){
+    console.log("connection succeeded");
+});
+
+var query = { email: "ekta3501@gmail.com" };
+db.collection("details").findOne(query,function(err, result) {
+if (err) throw err;
+if (result==null){
+   console.log("new  record");
+}
+else {
+    console.log(result);
+}
+
+db.close();
 });

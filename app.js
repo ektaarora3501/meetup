@@ -70,49 +70,13 @@ db.once('open', function(callback){
 })
 
 var app=express()
-
+//var db=require('./database.js')
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-
-app.post('/sign_up', function(req,res){
-    var name = req.body.name;
-    var email =req.body.email;
-    var pass = req.body.password;
-    var phone =req.body.phone;
-
-    var data = {
-        "name": name,
-        "email":email,
-        "password":pass,
-        "phone":phone
-    }
-db.collection('details').insertOne(data,function(err, collection){
-        if (err) throw err;
-        console.log("Record inserted Successfully");
-
-    });
-var mailOptions = {
-      from: '************@gmail.com',
-      to: email, // whatever email address user enters
-      subject: 'Sending Email using Node.js',
-      text: 'That was easy!'
-    };
-
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
-
-
-    return res.redirect('signup_success.html');
-})
 
 
 app.get('/',function(req,res){
@@ -122,6 +86,61 @@ res.set({
 return res.redirect('index.html');
 }).listen(3000)
 
+
+app.post('/sign_up', function(req,res){
+    var fname = req.body.fname;
+    var email =req.body.email;
+    var lsname = req.body.lsname;
+    var admin =req.body.add_no;
+
+    var data = {
+        "first_name": fname,
+        "email":email,
+        "last_name":lsname,
+        "admission_no":admin,
+    }
+    var query = { admission_no: admin };
+db.collection("details").findOne(query,function(err, result) {
+    if (err) throw err;
+    // checking if already registered or not
+    if (result==null){
+       console.log("new  record");
+
+      db.collection('details').insertOne(data,function(err, collection){
+      if (err) throw err;
+      console.log("Record inserted Successfully");
+       // if record is new, sending mail notification
+       var mailOptions = {
+             from: '*****************@gmail.com',
+             to: email, // whatever email address user enters
+             subject: 'verification mail',
+             text: 'Thank you mentor for registering with us .Please click on the given link to confirm your account  '
+           };
+
+           transporter.sendMail(mailOptions, function(error, info){
+             if (error) {
+               console.log(error);
+             } else {
+               console.log('Email sent: ' + info.response);
+             }
+           });
+
+
+           return res.redirect('signup_success.html');
+        });
+
+     }
+ // if record already exists
+    else{
+        console.log(result);
+
+        return res.redirect('exist.html');
+       }
+
+    db.close();
+});
+
+});
 
 console.log("server listening at port 3000");
 
