@@ -3,14 +3,14 @@
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'pycoders3501@gmail.com',
-    pass: 'stephen3501@'
+    user: '*******@gmail.com',
+    pass: '***********'
   }
 });
 
 var mailOptions = {
-  from: 'pycoders3501@gmail.com',
-  to: 'ektaarora3501@gmail.com',
+  from: '***********@gmail.com',
+  to: '*****************@gmail.com',
   subject: 'Sending Email using Node.js',
   text: 'That was easy!'
 };
@@ -31,7 +31,7 @@ db.once('open', function(callback){
     console.log("connection succeeded");
 });
 
-var query = { email: "ekta3501@gmail.com" };
+var query = { email: "********************.com" };
 db.collection("details").findOne(query,function(err, result) {
 if (err) throw err;
 if (result==null){
