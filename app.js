@@ -50,8 +50,8 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: '**************@gmail.com', // adding the email from which verification is to be sent
-    pass: 'xxxxxxxxxxxxx',  // password of that mail
+    user: '************.com', // adding the email from which verification is to be sent
+    pass: 'xxxxxxxxxx',  // password of that mail
   }
 });
 
@@ -116,7 +116,7 @@ db.collection("details").findOne(query,function(err, result) {
        // if record is new, sending mail notification
        console.log(otp);
        var mailOptions = {
-             from: '**************@gmail.com',
+             from: '*************@gmail.com',
              to: email, // whatever email address user enters
              subject: 'verification mail',
              text: 'Thank you mentor for registering with us .Here is your otp ' +otp,
@@ -142,8 +142,8 @@ db.collection("details").findOne(query,function(err, result) {
         /*  popup.alert({
             content:'the record already exists'
           });*/
-          return false
-        //return res.redirect('index.html');
+
+        return res.redirect('dashboard.html');
     }
 
     db.close();
