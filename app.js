@@ -96,15 +96,18 @@ app.post('/verification', function(req,res){
     var lsname = req.body.lsname;
     var admin =req.body.add_no;
     var LinkedIn=req.body.LinkedIn;
-    //var //twitter=req.body.Twitter;
+    var twitter=req.body.Twitter;
+    var facebook=req.body.Facebook;
+    console.log(twitter);
 
      data = {
         "first_name": fname,
         "email":email,
         "last_name":lsname,
         "admission_no":admin,
-        "linkedin":"http://www.linkedin.com/in/"+LinkedIn
-        //"twitter":twitter;
+        "linkedin":LinkedIn,
+        "twitter":twitter,
+        "facebook":facebook,
     }
 var query = { admission_no: admin };
 db.collection("details").findOne(query,function(err, result) {
