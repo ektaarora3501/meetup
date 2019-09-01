@@ -108,6 +108,7 @@ app.post('/verification', function(req,res){
         "linkedin":LinkedIn,
         "twitter":twitter,
         "facebook":facebook,
+        "phone_no":contact,
     }
 var query = { admission_no: admin };
 db.collection("details").findOne(query,function(err, result) {
